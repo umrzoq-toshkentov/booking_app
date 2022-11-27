@@ -34,7 +34,11 @@ export const router = createBrowserRouter([
           {
             path: ROUTER_PATHS.MAIN,
             element: <Main />,
-            loader: getExams,
+            loader: () =>
+              getExams({
+                page: 0,
+                size: 10,
+              }),
           },
         ],
       },

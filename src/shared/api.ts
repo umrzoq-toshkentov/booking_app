@@ -22,7 +22,12 @@ export interface ExamsProps {
   updatedAt: Date
 }
 
-export const getExams = async () => {
-  const res = await apiReq.get('exam/list')
+interface PageParams {
+  page: number
+  size: number
+}
+
+export const getExams = async ({ page, size }: PageParams) => {
+  const res = await apiReq.get(`exam/list?page=${page}&size=${size}`)
   return res.data.data as ExamsProps[]
 }
