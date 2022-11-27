@@ -24,11 +24,7 @@ const mantineSettings = (component: () => React.ReactNode) => () => {
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
-      <MantineProvider
-        theme={{ colorScheme }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
+      <MantineProvider theme={{ colorScheme }} withGlobalStyles>
         <Paper>{component()}</Paper>
       </MantineProvider>
     </ColorSchemeProvider>
