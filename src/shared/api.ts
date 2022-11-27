@@ -1,4 +1,6 @@
+import { queryClient } from 'app/providers/reactQuery'
 import apiReq from '.'
+import { QUERY_KEY } from './constants'
 
 export interface LoginParams {
   number: string
@@ -29,5 +31,14 @@ interface PageParams {
 
 export const getExams = async ({ page, size }: PageParams) => {
   const res = await apiReq.get(`exam/list?page=${page}&size=${size}`)
-  return res.data.data as ExamsProps[]
+  queryClient.setQueryData([QUERY_KEY.EXAMS], res.data.data)
+  return {
+    data: res.data.data as ExamsProps[],
+    count: res.data.pageable.count as number,
+  }
+}
+
+export const deleteExam = async (id: number) => {
+  const res = apiReq.delete(`exam/delete/${id}`)
+  return res
 }

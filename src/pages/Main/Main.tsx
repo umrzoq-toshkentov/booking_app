@@ -1,15 +1,20 @@
-import { Grid, Pagination, Space, Text } from '@mantine/core'
+import { Button, Grid, Pagination, Space, Text } from '@mantine/core'
+import { ColumnDef } from '@tanstack/react-table'
+import { useRef } from 'react'
 import { Suspense, useMemo } from 'react'
 import { Await, useLoaderData, useSearchParams } from 'react-router-dom'
 import { SkeletonComponent } from '../../components/Skeleton'
 import { Table } from '../../components/Table'
 import { ExamsProps } from '../../shared/api'
+import { DeleteModal } from './components/DeleteModal'
+import { DataParams, DeleteRef } from './model'
 
 export const Main = () => {
+  const ref = useRef<DeleteRef>(null)
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const data = useLoaderData()
-  const columns = useMemo(() => {
+  const data = useLoaderData() as DataParams
+  const columns = useMemo<ColumnDef<ExamsProps>[]>(() => {
     return [
       {
         accessorKey: 'id',
@@ -23,6 +28,22 @@ export const Main = () => {
         accessorKey: 'price',
         header: 'Narxi',
       },
+      {
+        accessorKey: 'action',
+        header: '',
+        cell: ({ row }) => {
+          const handleClick = () => {
+            ref.current?.onOpen(row.original)
+          }
+          return (
+            <div>
+              <Button onClick={handleClick} color="red">
+                O'chirish
+              </Button>
+            </div>
+          )
+        },
+      },
     ]
   }, [])
 
@@ -35,7 +56,7 @@ export const Main = () => {
         <Space h="md" />
         <Suspense fallback={<SkeletonComponent />}>
           <Await
-            resolve={data}
+            resolve={data.data}
             errorElement={<div>Could not load reviews 😬</div>}
             children={(resolvedReviews: ExamsProps[]) => {
               return (
@@ -55,10 +76,10 @@ export const Main = () => {
                       setSearchParams(urlParams)
                     }}
                     sx={{ marginTop: 40 }}
-                    total={20}
-                    boundaries={1}
+                    total={data.count / 10 > 1 ? data.count / 10 : 0}
                     initialPage={Number(pageTable)}
                   />
+                  <DeleteModal name="delete" ref={ref} />
                 </>
               )
             }}

@@ -18,6 +18,7 @@ const alias: AliasOptions = getAlias([
   'forms',
   'utils',
   'shared',
+  'app',
 ])
 
 // https://vitejs.dev/config/
