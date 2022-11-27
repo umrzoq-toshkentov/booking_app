@@ -33,7 +33,6 @@ export const SignIn = () => {
   })
 
   const onSubmit = (data: LoginParams) => {
-    console.log(data, 'data')
     handleLogin.mutate(data)
   }
 
@@ -69,7 +68,13 @@ export const SignIn = () => {
             }}
           />
 
-          <Button fullWidth sx={{ marginTop: 20 }} type="submit">
+          <Button
+            disabled={handleLogin.isLoading}
+            loading={handleLogin.isLoading}
+            fullWidth
+            sx={{ marginTop: 20 }}
+            type="submit"
+          >
             Kirish
           </Button>
         </form>
