@@ -51,7 +51,7 @@ export const SignIn = () => {
             }}
           />
 
-          <Button sx={{ marginTop: 20 }} type="submit">
+          <Button fullWidth sx={{ marginTop: 20 }} type="submit">
             Kirish
           </Button>
         </form>

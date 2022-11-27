@@ -1,1 +1,1 @@
-export const REQUIRED_TEXT = 'Majburiy maydin!'
+export const REQUIRED_TEXT = 'Majburiy maydon!'
