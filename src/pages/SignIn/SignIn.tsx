@@ -69,7 +69,6 @@ export const SignIn = () => {
           />
 
           <Button
-            disabled={handleLogin.isLoading}
             loading={handleLogin.isLoading}
             fullWidth
             sx={{ marginTop: 20 }}

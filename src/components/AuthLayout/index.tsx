@@ -61,7 +61,6 @@ export const AuthLayout = () => {
         >
           <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
             <Box
-              w="100%"
               sx={(theme) => ({
                 backgroundColor:
                   theme.colorScheme === 'dark'
@@ -71,7 +70,7 @@ export const AuthLayout = () => {
                 padding: theme.spacing.xl,
                 borderRadius: theme.radius.md,
                 cursor: 'pointer',
-
+                width: '100%',
                 '&:hover': {
                   backgroundColor:
                     theme.colorScheme === 'dark'
