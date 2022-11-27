@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AuthLayout } from '../../components/AuthLayout'
 import { Layout } from '../../components/Layout'
+import { getExams } from '../../shared/api'
 
 const SignIn = lazy(() => import('../../pages/SignIn'))
 const Main = lazy(() => import('../../pages/Main'))
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
           {
             path: ROUTER_PATHS.MAIN,
             element: <Main />,
+            loader: getExams,
           },
         ],
       },
