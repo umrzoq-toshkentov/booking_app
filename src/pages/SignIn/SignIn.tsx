@@ -5,7 +5,7 @@ import { resolver } from './constant'
 import { useMutation } from '@tanstack/react-query'
 import { login, LoginParams } from '../../shared/api'
 import Cookies from 'js-cookie'
-import { TOKEN } from '../../shared'
+import { TOKEN } from 'shared/index'
 import { useNavigate } from 'react-router-dom'
 import { ROUTER_PATHS } from '../../app/providers/router'
 
@@ -38,7 +38,7 @@ export const SignIn = () => {
 
   return (
     <Grid sx={{ minHeight: '100vh' }} justify="center" align="center">
-      <Grid.Col span={4}>
+      <Grid.Col lg={4} md={6} sm={8}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}
