@@ -1,4 +1,4 @@
-import { Button, Grid, Pagination, Space, Text } from '@mantine/core'
+import { Box, Button, Grid, Pagination, Space, Text } from '@mantine/core'
 import { ColumnDef } from '@tanstack/react-table'
 import { useRef } from 'react'
 import { Suspense, useMemo } from 'react'
@@ -6,11 +6,14 @@ import { Await, useLoaderData, useSearchParams } from 'react-router-dom'
 import { SkeletonComponent } from '../../components/Skeleton'
 import { Table } from '../../components/Table'
 import { ExamsProps } from '../../shared/api'
+import { AddModal } from './components/AddModal'
 import { DeleteModal } from './components/DeleteModal'
-import { DataParams, DeleteRef } from './model'
+import { AddRef, DataParams, DeleteRef } from './model'
 
 export const Main = () => {
   const ref = useRef<DeleteRef>(null)
+  const addRef = useRef<AddRef>(null)
+
   const [searchParams, setSearchParams] = useSearchParams()
 
   const data = useLoaderData() as DataParams
@@ -49,6 +52,8 @@ export const Main = () => {
 
   const pageTable = searchParams.get('page') || 1
 
+  const handleAdd = () => addRef.current?.onOpen()
+
   return (
     <Grid sx={{ minHeight: '100vh' }} justify="center">
       <Grid.Col span={10}>
@@ -61,6 +66,16 @@ export const Main = () => {
             children={(resolvedReviews: ExamsProps[]) => {
               return (
                 <>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      marginBottom: 15,
+                    }}
+                  >
+                    <Button onClick={handleAdd}>Qo'shish</Button>
+                  </Box>
                   <Table columns={columns} data={resolvedReviews} />
                   <Pagination
                     onChange={(page) => {
@@ -80,6 +95,7 @@ export const Main = () => {
                     initialPage={Number(pageTable)}
                   />
                   <DeleteModal name="delete" ref={ref} />
+                  <AddModal name="add" ref={addRef} />
                 </>
               )
             }}

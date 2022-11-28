@@ -12,6 +12,21 @@ export const login = async (body: LoginParams) => {
   return res
 }
 
+export interface AddExam {
+  price: number
+  startedDate: Date
+  title: string
+  active: boolean
+}
+
+export interface SubjectParam extends AddExam {
+  subjectId: string
+}
+
+export interface SubjectCreateMutation extends AddExam {
+  subjectId: number
+}
+
 export interface ExamsProps {
   id: number
   title: string
@@ -29,6 +44,11 @@ interface PageParams {
   size: number
 }
 
+export interface SubjectParams {
+  id: number
+  name: string
+}
+
 export const getExams = async ({ page, size }: PageParams) => {
   const res = await apiReq.get(`exam/list?page=${page}&size=${size}`)
   queryClient.setQueryData([QUERY_KEY.EXAMS], res.data.data)
@@ -39,6 +59,17 @@ export const getExams = async ({ page, size }: PageParams) => {
 }
 
 export const deleteExam = async (id: number) => {
-  const res = apiReq.delete(`exam/delete/${id}`)
+  const res = await apiReq.delete(`exam/delete/${id}`)
   return res
+}
+
+export const createExam = async (body: SubjectCreateMutation) => {
+  const res = await apiReq.post('exam/createOrUpdate', body)
+  return res
+}
+
+export const getSubjects = async () => {
+  const res = await apiReq.get('subject/list')
+
+  return res.data
 }
