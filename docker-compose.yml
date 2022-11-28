@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  reactapp:
+    build: ./dir
+    container_name: book_app
+    ports:
+      - '3001'
