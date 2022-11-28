@@ -142,10 +142,10 @@ export const AddModal = forwardRef<AddRef, AddProps>((_, ref) => {
             return (
               <Select
                 label="Fan"
-                placeholder="Sanani tanlang"
+                placeholder="Fanni tanlang"
                 {...field}
                 data={subjects}
-                error={errors.startedDate?.message}
+                error={errors.subjectId?.message}
               />
             )
           }}
