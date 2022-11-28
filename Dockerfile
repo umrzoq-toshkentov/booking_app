@@ -1,8 +1,13 @@
-FROM node
-WORKDIR /app
-COPY package.json .
-RUN npm i
-COPY . .
-## EXPOSE [Port you mentioned in the vite.config file]
-EXPOSE 3001
+FROM node:18-alpine
+
+WORKDIR /react_book_app
+
+EXPOSE 3000
+
+COPY package.json package-lock.json ./
+
+RUN npm install --silent
+
+COPY . ./
+
 CMD ["npm", "run", "dev"]
