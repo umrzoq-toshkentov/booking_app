@@ -1,6 +1,7 @@
 import path from 'path'
 import react from '@vitejs/plugin-react'
 import { AliasOptions, defineConfig } from 'vite'
+import tscPlugin from 'vite-plugin-tsc'
 
 const getAlias = (aliases: string[]): AliasOptions =>
   aliases.map((alias) => ({
@@ -23,12 +24,8 @@ const alias: AliasOptions = getAlias([
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tscPlugin()],
   resolve: {
     alias,
-  },
-  server: {
-    port: 3001,
-    host: '0.0.0.0',
   },
 })
