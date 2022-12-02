@@ -42,6 +42,10 @@ export const router = createBrowserRouter([
               })
             },
           },
+          {
+            path: ROUTER_PATHS.COURSES,
+            element: <div>Kurslar</div>,
+          },
         ],
       },
     ],
