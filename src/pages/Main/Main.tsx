@@ -1,7 +1,6 @@
-import { Box, Button, Grid, Pagination, Space, Text } from '@mantine/core'
+import { Box, Button, Grid, List, Pagination, Space, Text } from '@mantine/core'
 import { ColumnDef } from '@tanstack/react-table'
-import { useRef } from 'react'
-import { Suspense, useMemo } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { Await, useLoaderData, useSearchParams } from 'react-router-dom'
 import { SkeletonComponent } from '../../components/Skeleton'
 import { Table } from '../../components/Table'
@@ -10,10 +9,12 @@ import { AddModal } from './components/AddModal'
 import { DeleteModal } from './components/DeleteModal'
 import { AddRef, DataParams, DeleteRef } from './model'
 import _ from 'lodash'
+import { useViewportSize } from '@mantine/hooks'
 
 export const Main = () => {
   const ref = useRef<DeleteRef>(null)
   const addRef = useRef<AddRef>(null)
+  const { width } = useViewportSize()
 
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -77,7 +78,20 @@ export const Main = () => {
                   >
                     <Button onClick={handleAdd}>Qo'shish</Button>
                   </Box>
-                  <Table columns={columns} data={resolvedReviews} />
+                  {width > 800 ? (
+                    <Table columns={columns} data={resolvedReviews} />
+                  ) : (
+                    <List type="ordered" spacing={25} size="lg">
+                      {!_.isNull(data?.data) &&
+                        data?.data?.length > 0 &&
+                        data?.data.map((item) => {
+                          return (
+                            <List.Item key={item.id}>{item.title}</List.Item>
+                          )
+                        })}
+                    </List>
+                  )}
+
                   <Pagination
                     onChange={(page) => {
                       const pageM = {
