@@ -9,6 +9,7 @@ import { ExamsProps } from '../../shared/api'
 import { AddModal } from './components/AddModal'
 import { DeleteModal } from './components/DeleteModal'
 import { AddRef, DataParams, DeleteRef } from './model'
+import _ from 'lodash'
 
 export const Main = () => {
   const ref = useRef<DeleteRef>(null)
@@ -49,6 +50,8 @@ export const Main = () => {
       },
     ]
   }, [])
+
+  console.log(data.count, 'data')
 
   const pageTable = searchParams.get('page') || 1
 
@@ -91,7 +94,7 @@ export const Main = () => {
                       setSearchParams(urlParams)
                     }}
                     sx={{ marginTop: 40 }}
-                    total={data.count / 10 > 1 ? data.count / 10 : 0}
+                    total={data.count / 10 > 1 ? _.ceil(data.count / 10) : 0}
                     initialPage={Number(pageTable)}
                   />
                   <DeleteModal name="delete" ref={ref} />
