@@ -28,4 +28,11 @@ export default defineConfig({
   resolve: {
     alias,
   },
+  server: {
+    hmr: { clientPort: 443 },
+    host: '0.0.0.0',
+    open: true,
+    port: 80,
+    strictPort: true,
+  },
 })

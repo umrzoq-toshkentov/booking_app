@@ -75,20 +75,29 @@ export const AuthLayout = () => {
               />
             </MediaQuery>
 
-            <Grid
-              sx={{ width: '100%' }}
-              align="flex-end"
-              justify="space-between"
-            >
-              <Grid.Col sm={3} md={2} lg={1}>
-                <Text fz="lg">LMS system</Text>
-              </Grid.Col>
-              <Grid.Col sm={3} md={2} lg={1}>
-                <Button onClick={handleLogout} color="red">
-                  Chiqish
-                </Button>
-              </Grid.Col>
-            </Grid>
+            <MediaQuery smallerThan="md" styles={{ display: 'none' }}>
+              <Grid
+                sx={{ width: '100%' }}
+                align="flex-end"
+                justify="space-between"
+              >
+                <Grid.Col xs={6} sm={0} md={0} lg={6}>
+                  <Text fz="lg">LMS system</Text>
+                </Grid.Col>
+
+                <Grid.Col
+                  sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                  xs={6}
+                  sm={10}
+                  md={6}
+                  lg={6}
+                >
+                  <Button onClick={handleLogout} color="red">
+                    Chiqish
+                  </Button>
+                </Grid.Col>
+              </Grid>
+            </MediaQuery>
           </div>
         </Header>
       }

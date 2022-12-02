@@ -51,8 +51,6 @@ export const Main = () => {
     ]
   }, [])
 
-  console.log(data.count, 'data')
-
   const pageTable = searchParams.get('page') || 1
 
   const handleAdd = () => addRef.current?.onOpen()
