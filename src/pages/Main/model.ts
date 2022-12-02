@@ -19,6 +19,12 @@ export interface AddProps {
   name: string
 }
 
+export interface InfoRef extends DeleteRef {}
+
+export interface InfoProps {
+  name: string
+}
+
 export interface DataParams {
   data: ExamsProps[]
   count: number

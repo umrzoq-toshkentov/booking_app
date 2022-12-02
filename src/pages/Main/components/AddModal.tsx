@@ -9,10 +9,9 @@ import {
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { ROUTER_PATHS } from 'app/providers/router'
 import { forwardRef, useImperativeHandle, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   createExam,
   getSubjects,
@@ -25,6 +24,7 @@ import { AddProps, AddRef, resolver } from '../model'
 export const AddModal = forwardRef<AddRef, AddProps>((_, ref) => {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { data } = useQuery([QUERY_KEY.SUBJECTS], getSubjects, {
     enabled: open,
   })
@@ -32,7 +32,7 @@ export const AddModal = forwardRef<AddRef, AddProps>((_, ref) => {
   const createHandleExam = useMutation(createExam, {
     onSuccess: () => {
       handleClose()
-      navigate('/' + ROUTER_PATHS.MAIN)
+      navigate(location.pathname + location.search)
     },
   })
 

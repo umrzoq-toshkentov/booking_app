@@ -1,19 +1,23 @@
-import { Box, Button, Grid, Modal, Text } from '@mantine/core'
+import { Box, Button, Modal, Text } from '@mantine/core'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useImperativeHandle } from 'react'
 import { forwardRef } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { deleteExam, ExamsProps } from 'shared/api'
 import { DeleteProps, DeleteRef } from '../model'
 
 export const DeleteModal = forwardRef<DeleteRef, DeleteProps>((_, ref) => {
   const [open, setOpen] = useState(false)
   const [row, setRow] = useState<Partial<ExamsProps>>()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const handleClose = () => setOpen(false)
   const deleteMutation = useMutation(deleteExam, {
     onSuccess: () => {
       handleClose()
+      navigate(location.pathname + location.search)
     },
   })
 
